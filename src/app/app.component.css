@@ -1,0 +1,113 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 48px 24px;
+  background:
+    radial-gradient(circle at top left, #164e63 0, transparent 35%),
+    linear-gradient(135deg, #07111f, #10243a);
+  color: #f8fafc;
+  box-sizing: border-box;
+}
+
+section {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+.game-card {
+  padding: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.78);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(12px);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  border-color: #22d3ee;
+  box-shadow: 0 22px 50px rgba(34, 211, 238, 0.18);
+}
+
+h1 {
+  text-align: center;
+  color: #cbd5e1;
+  margin: 0 0 30px;
+}
+
+h2 {
+  margin: 0 0 18px;
+  color: #67e8f9;
+  font-size: 1.35rem;
+}
+
+p {
+  margin: 9px 0;
+  color: #cbd5e1;
+  font-size: 0.98rem;
+}
+
+p:last-child {
+  margin-top: 20px;
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.buscar {
+  width: min(420px, 100%);
+  margin: 0 auto 42px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(103, 232, 249, 0.3);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.7);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.buscar label {
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.buscar input {
+  padding: 11px 13px;
+  text-align: center;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 1rem;
+  outline: none;
+}
+
+.buscar input:focus {
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
+}
+
+.buscar button {
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #06b6d4;
+  color: #082f49;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.buscar button:hover {
+  background: #22d3ee;
+  transform: translateY(-2px);
+}
+
+.buscar button:active {
+  transform: translateY(0);
+}
