@@ -57,27 +57,49 @@ p:last-child {
   font-weight: 700;
 }
 
-.buscar {
-  width: min(420px, 100%);
+.searchContainer {
+  width: min(1180px, 100%);
   margin: 0 auto 42px;
   padding: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(150px, 0.7fr)) minmax(0, 1.5fr);
+  gap: 16px;
+  align-items: end;
   border: 1px solid rgba(103, 232, 249, 0.3);
-  border-radius: 14px;
+  border-radius: 16px;
   background: rgba(15, 23, 42, 0.7);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
 }
 
-.buscar label {
+.search,
+.title {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.search label,
+.title label {
+  grid-column: 1 / -1;
   color: #cbd5e1;
   font-weight: 600;
 }
 
-.buscar input {
+.selectGenre label,
+.selectPlatform label {
+  display: block;
+  margin-bottom: 8px;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.search input,
+.title input,
+.selectGenre select,
+.selectPlatform select {
+  width: 100%;
   padding: 11px 13px;
-  text-align: center;
   border: 1px solid #475569;
   border-radius: 8px;
   background: #f8fafc;
@@ -86,12 +108,21 @@ p:last-child {
   outline: none;
 }
 
-.buscar input:focus {
+.search input:focus,
+.title input:focus,
+.selectGenre select:focus,
+.selectPlatform select:focus {
   border-color: #22d3ee;
   box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
 }
 
-.buscar button {
+.selectGenre,
+.selectPlatform {
+  width: 100%;
+}
+
+.search button,
+.title button {
   padding: 11px 16px;
   border: 0;
   border-radius: 8px;
@@ -103,11 +134,26 @@ p:last-child {
   transition: background 180ms ease, transform 180ms ease;
 }
 
-.buscar button:hover {
+.search button:hover,
+.title button:hover {
   background: #22d3ee;
   transform: translateY(-2px);
 }
 
-.buscar button:active {
+.search button:active,
+.title button:active {
   transform: translateY(0);
+}
+
+@media (max-width: 860px) {
+  .searchContainer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .searchContainer {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
 }

@@ -3,13 +3,18 @@
 <div class="searchContainer">
   <div class="search">
     <label for="gameId">Buscar videojuego por ID:</label>
-    <input id="gameId" type="text" #id />
+    <input #id id="gameId" type="text" />
     <button type="button" (click)="searchGameById(id.value)">Buscar</button>
   </div>
 
   <div class="selectGenre">
-    <select #genreSelect (change)="onGenreChange(genreSelect.value)">
-      <option value="">Todos</option>
+    <label for="genreSelect">Selecciona el género:</label>
+    <select
+      id="genreSelect"
+      #genreSelect
+      (change)="onGenreChange(genreSelect.value)"
+    >
+      <option value="Todos">Todos</option>
       <option value="Action">Action</option>
       <option value="Adventure">Adventure</option>
       <option value="RPG">RPG</option>
@@ -21,8 +26,13 @@
   </div>
 
   <div class="selectPlatform">
-    <select #platformSelect (change)="onPlatformChange(platformSelect.value)">
-      <option value="">Todas</option>
+    <label for="platformSelect">Selecciona la plataforma:</label>
+    <select
+      id="platformSelect"
+      #platformSelect
+      (change)="onPlatformChange(platformSelect.value)"
+    >
+      <option value="Todas">Todas</option>
       <option value="PC">PC</option>
       <option value="PlayStation">PlayStation</option>
       <option value="Xbox">Xbox</option>

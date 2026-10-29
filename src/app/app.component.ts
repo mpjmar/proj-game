@@ -13,8 +13,11 @@ export class AppComponent implements OnInit {
   title = 'proj-game';
   games?: Game[];
   game?: Game;
-  private gameService = inject(GameService);
 
+  private gameService = inject(GameService);
+  // constructor(private gameService: GameService) {}
+
+  // HOOK: OnInit para hidratación del template ya cargado en esqueleto HTML
   ngOnInit(): void {
     this.gameService.getGames().subscribe((games) => {
       this.games = games;
@@ -22,23 +25,51 @@ export class AppComponent implements OnInit {
   }
 
   searchGameById(id: string): void {
-    const idNumber = Number(id);
-    this.gameService.getGameById(idNumber).subscribe((game) => {
-      this.game = game;
-    });
+    if (id === '') {
+      this.gameService.getGames().subscribe((games) => {
+        this.games = games;
+      });
+    } else {
+      const idNumber = Number(id);
+      this.gameService.getGameById(idNumber).subscribe((game) => {
+        this.games = [game];
+      });
+    }
   }
 
   onGenreChange(genre: string): void {
-    console.log(genre);
+    if (genre === 'Todos') {
+      this.gameService.getGames().subscribe((games) => {
+        this.games = games;
+      });
+    } else {
+      this.gameService.getGamesByGenre(genre).subscribe((games) => {
+        this.games = games;
+      });
+    }
   }
 
   onPlatformChange(platform: string): void {
-    console.log(platform);
+    if (platform === 'Todas') {
+      this.gameService.getGames().subscribe((games) => {
+        this.games = games;
+      });
+    } else {
+      this.gameService.getGamesByPlatform(platform).subscribe((games) => {
+        this.games = games;
+      });
+    }
   }
 
   searchGamesByTitle(title: string): void {
-    this.gameService.getGamesByTitle(title).subscribe((games) => {
-      this.games = games;
-    });
+    if (title === '') {
+      this.gameService.getGames().subscribe((games) => {
+        this.games = games;
+      });
+    } else {
+      this.gameService.getGamesByTitle(title).subscribe((games) => {
+        this.games = games;
+      });
+    }
   }
 }
