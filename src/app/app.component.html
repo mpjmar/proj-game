@@ -3,7 +3,7 @@
 <div class="searchContainer">
   <div class="search">
     <label for="gameId">Buscar videojuego por ID:</label>
-    <input #id id="gameId" type="text" />
+    <input #id id="gameId" type="text" placeholder="Introduce id" />
     <button type="button" (click)="searchGameById(id.value)">Buscar</button>
   </div>
 
@@ -42,8 +42,8 @@
 
   <div class="title">
     <label for="gameTitle">Buscar videojuego por título:</label>
-    <input id="gameTitle" type="text" #title />
-    <button type="button" (click)="searchGamesByTitle(title.value)">
+    <input #title id="gameTitle" type="text" placeholder="Introduce título" />
+    <button type="button" (click)="onSearchGamesByTitle(title.value)">
       Buscar
     </button>
   </div>
@@ -51,6 +51,17 @@
   <div class="global">
     <input #query type="text" placeholder="Buscar juegos" />
     <button type="button" (click)="searchGames(query.value)">Buscar</button>
+  </div>
+
+  <div class="price">
+    <span>Buscar por precio (€) </span>
+    <div class="price-inputs">
+      <input #minPrice type="number" placeholder="Min" />
+      <input #maxPrice type="number" placeholder="Máx" />
+      <button (click)="onSearchByPrice(minPrice.value, maxPrice.value)">
+        Filtrar
+      </button>
+    </div>
   </div>
 </div>
 
@@ -62,5 +73,36 @@
       <p>{{ game.platform }}</p>
       <p>Precio: {{ game.price | currency: "EUR" }}</p>
     </div>
+  } @empty {
+    <span class="empty">No se encuentran juegos</span>
   }
 </section>
+
+<div class="pages-container">
+  <div style="display: flex; align-items: center; gap: 12px">
+    <label for="pageSize">Videojuegos por página:</label>
+    <select
+      id="pageSize"
+      class="size-select"
+      [value]="pageSize"
+      (change)="onPageSizeChange($any($event.target).value)"
+    >
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+    </select>
+  </div>
+
+  <div class="page-controls">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">
+      Anterior
+    </button>
+
+    <span> Página {{ currentPage }} de {{ totalPages }} </span>
+
+    <button (click)="nextPage()" [disabled]="currentPage >= totalPages">
+      Siguiente
+    </button>
+  </div>
+</div>
