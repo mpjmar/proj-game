@@ -13,6 +13,9 @@ export class AppComponent implements OnInit {
   title = 'proj-game';
   games?: Game[];
   game?: Game;
+  selectedGenre = 'Todos';
+  selectedPlatform = 'Todas';
+  currentPage = 0;
 
   private gameService = inject(GameService);
   // constructor(private gameService: GameService) {}
@@ -22,6 +25,20 @@ export class AppComponent implements OnInit {
     this.gameService.getGames().subscribe((games) => {
       this.games = games;
     });
+  }
+
+  searchGames(query: string): void {
+    const search = query.trim();
+
+    if (search === '') {
+      this.gameService.getGames().subscribe((games) => {
+        this.games = games;
+      });
+    } else {
+      this.gameService.getGamesByQuery(search).subscribe((games) => {
+        this.games = games;
+      });
+    }
   }
 
   searchGameById(id: string): void {
@@ -38,36 +55,33 @@ export class AppComponent implements OnInit {
   }
 
   onGenreChange(genre: string): void {
-    if (genre === 'Todos') {
-      this.gameService.getGames().subscribe((games) => {
-        this.games = games;
-      });
-    } else {
-      this.gameService.getGamesByGenre(genre).subscribe((games) => {
-        this.games = games;
-      });
-    }
+    this.selectedGenre = genre;
+    this.currentPage = 1;
+    this.applyFilters();
   }
 
   onPlatformChange(platform: string): void {
-    if (platform === 'Todas') {
-      this.gameService.getGames().subscribe((games) => {
+    this.selectedPlatform = platform;
+    this.currentPage = 1;
+    this.applyFilters();
+  }
+
+  applyFilters(): void {
+    this.gameService
+      .getGamesByFilters(this.selectedGenre, this.selectedPlatform)
+      .subscribe((games) => {
         this.games = games;
       });
-    } else {
-      this.gameService.getGamesByPlatform(platform).subscribe((games) => {
-        this.games = games;
-      });
-    }
   }
 
   searchGamesByTitle(title: string): void {
-    if (title === '') {
+    const search = title.trim();
+    if (search === '') {
       this.gameService.getGames().subscribe((games) => {
         this.games = games;
       });
     } else {
-      this.gameService.getGamesByTitle(title).subscribe((games) => {
+      this.gameService.getGamesByTitle(search).subscribe((games) => {
         this.games = games;
       });
     }

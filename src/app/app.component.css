@@ -73,14 +73,16 @@ p:last-child {
 }
 
 .search,
-.title {
+.title,
+.global {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
 }
 
 .search label,
-.title label {
+.title label,
+.global label {
   grid-column: 1 / -1;
   color: #cbd5e1;
   font-weight: 600;
@@ -96,6 +98,7 @@ p:last-child {
 
 .search input,
 .title input,
+.global input,
 .selectGenre select,
 .selectPlatform select {
   width: 100%;
@@ -110,6 +113,7 @@ p:last-child {
 
 .search input:focus,
 .title input:focus,
+.global input:focus,
 .selectGenre select:focus,
 .selectPlatform select:focus {
   border-color: #22d3ee;
@@ -122,7 +126,8 @@ p:last-child {
 }
 
 .search button,
-.title button {
+.title button,
+.global button {
   padding: 11px 16px;
   border: 0;
   border-radius: 8px;
@@ -135,13 +140,15 @@ p:last-child {
 }
 
 .search button:hover,
-.title button:hover {
+.title button:hover,
+.global button {
   background: #22d3ee;
   transform: translateY(-2px);
 }
 
 .search button:active,
-.title button:active {
+.title button:active,
+.global button:active {
   transform: translateY(0);
 }
 

@@ -47,6 +47,11 @@
       Buscar
     </button>
   </div>
+
+  <div class="global">
+    <input #query type="text" placeholder="Buscar juegos" />
+    <button type="button" (click)="searchGames(query.value)">Buscar</button>
+  </div>
 </div>
 
 <section>

@@ -26,7 +26,27 @@ export class GameService {
     return this.http.get<Game[]>(`${this.apiUrl}?platform=${platform}`);
   }
 
+  getGamesByFilters(genre: string, platform: string): Observable<Game[]> {
+    let url = this.apiUrl;
+    const params: String[] = [];
+
+    if (genre !== 'Todos') params.push(`genre=${genre}`);
+    if (platform !== 'Todos') params.push(`platform=${platform}`);
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return this.http.get<Game[]>(url);
+  }
+
   getGamesByTitle(title: string): Observable<Game[]> {
-    return this.http.get<Game[]>(`${this.apiUrl}?title=${title}`);
+    return this.http.get<Game[]>(`${this.apiUrl}?title_like=${title}`);
+  }
+
+  getGamesByQuery(query: String): Observable<Game[]> {
+    const encodedQuery = encodeURIComponent(query.trim());
+
+    return this.http.get<Game[]>(`${this.apiUrl}?q=${encodedQuery}`);
   }
 }
