@@ -1,0 +1,100 @@
+<form #gameForm="ngForm" (ngSubmit)="onSaveGame()">
+  <label for="titleId">Título</label>
+  <input
+    id="titleId"
+    type="text"
+    name="title"
+    [(ngModel)]="this.game.title"
+    require
+    minlength="3"
+    #title="ngModel"
+  />
+
+  @if (title.invalid && (title.touched || title.dirty)) {
+    @if (title.errors?.["required"]) {
+      <p>Título obligatorio...</p>
+    }
+    @if (title.errors?.["minlength"]) {
+      <p>Longitud mínima 3...</p>
+    }
+  }
+
+  <div>
+    <label for="genreId">Género: </label>
+    <select
+      id="genreId"
+      #genre="ngModel"
+      [(ngModel)]="this.game.genre"
+      name="genre"
+      required
+    >
+      <option value="">Selecciona un género</option>
+      <option value="Platform">Platform</option>
+      <option value="Strategy">Strategy</option>
+      <option value="Racing">Racing</option>
+      <option value="RPG">RPG</option>
+      <option value="Action">Action</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Simulation">Simulation</option>
+      <option value="Sports">Sports</option>
+    </select>
+
+    @if (genre.invalid && (genre.dirty || genre.touched)) {}
+    <p>El género es obligatorio</p>
+  </div>
+
+  <div>
+    <input
+      id="priceId"
+      type="number"
+      name="price"
+      min="0.01"
+      max="100"
+      [(ngModel)]="this.game.price"
+      require
+      #price="ngModel"
+    />
+
+    @if (price.invalid && (price.touched || price.dirty)) {
+      @if (price.errors?.["required"]) {
+        <p>El precio es obligatorio...</p>
+      }
+      @if (price.errors?.["min"] || price.errors?.["max"]) {
+        <p>Precio fuera del rango permitido [0.01-109]</p>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="stockId">Stock: </label>
+    @let invalidStock = stock.touched || stock.dirty;
+    <input
+      [class.invalid-control]="stock.invalid && invalidStock"
+      ;
+      id="stockId"
+      type="number"
+      name="stock"
+      min="0"
+      max="999"
+      [(ngModel)]="this.game.stock"
+      required
+      #stock="ngModel"
+    />
+
+    @if (invalidStock) {
+      @if (stock.errors?.["required"]) {
+        <p>El stock es obligatorio...</p>
+      }
+      @if (stock.errors?.["min"] || stock.errors?.["max"]) {
+        <p>Stock fuera del rango permitido [0-999]</p>
+      }
+    }
+  </div>
+
+  <button [disabled]="gameForm.invalid">Guardar</button>
+
+  <p>Válido: {{ gameForm.valid }}</p>
+  <p>Modificado: {{ gameForm.dirty }}</p>
+</form>
+
+{{ this.game | json }}

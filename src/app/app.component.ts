@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Game } from './models/game';
 import { GameService } from './services/game.service';
 import { CommonModule } from '@angular/common';
+import { CrudComponent } from './components/crud/crud.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule],
+  imports: [CommonModule, CrudComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
